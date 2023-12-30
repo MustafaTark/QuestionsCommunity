@@ -27,7 +27,9 @@ namespace Application.Questions.Commands.Create
                 var questionFile = QuestionFile.Create(url);
                 questionFiles.Add(questionFile);
             }
-          var question =   Question.Create(request.Question.Title,request.Question.Content,request.Question.CommunityId, questionFiles);
+          var question =   Question.Create(request.Question.Title,request.Question.Content,
+                                          request.Question.CommunityId,
+                                          questionFiles,request.Question.QuestionTags.Select(q=>new QuestionTag { TagId = q}).ToList());
             _questionRepository.Create(question);
         }
     }

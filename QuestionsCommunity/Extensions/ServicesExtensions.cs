@@ -18,6 +18,9 @@ using Domain.Dto.Questions;
 using Application.Comminuties.Commands.Create;
 using Application.Comminuties.Queries.GetAll;
 using Domain.Dto.Community;
+using Application.Tags.Commands.Create;
+using Application.Tags.Queries.GetAll;
+using Domain.Dto.Tags;
 
 namespace BrightWeb.Extensions
 {
@@ -75,12 +78,19 @@ namespace BrightWeb.Extensions
         public static void ConfigureLifeTime(this IServiceCollection services)
         {
             services.AddScoped<IQuestionRepository, QuestionRepository>();
-            services.AddScoped<ICommunityRepository, CommunityRepository>();
             services.AddScoped<IRequestHandler<CreateQuestionCommand>, CreateQuestionCommandHandller>();
+            services.AddScoped<IRequestHandler<GetAllQuestionsQuery, IEnumerable<QuestionDto>>, GetAllQuestionsQueryHandler>();
+            
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IRequestHandler<CreateTagCommand>, CreateTagCommandHandller>();
+            services.AddScoped<IRequestHandler<GetAllTagsQuery, IEnumerable<TagDto>>, GetAllTagsQueryHandeller>();
+
+            services.AddScoped<ICommunityRepository, CommunityRepository>();
             services.AddScoped<IRequestHandler<CreateCommunityCommand>, CreateCommunityCommandHandller>();
+            services.AddScoped<IRequestHandler<GetAllCommunitiesQuery, IEnumerable<CommunityDto>>, GetAllCommmunityQueryHandller>();
             services.AddScoped<IFilesManager, FilesManager>();
-            services.AddScoped<IRequestHandler<GetAllQuestionsQuery,IEnumerable<QuestionDto>>, GetAllQuestionsQueryHandler>();
-            services.AddScoped<IRequestHandler<GetAllCommunitiesQuery,IEnumerable<CommunityDto>>, GetAllCommmunityQueryHandller>();
+           
+           
         }
     }
 }

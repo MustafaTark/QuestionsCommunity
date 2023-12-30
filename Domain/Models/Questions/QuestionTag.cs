@@ -10,8 +10,6 @@ namespace Domain.Models.Questions
 {
     public class QuestionTag : BaseEntity
     {
-        public Guid QuestionId { get; set; }
-        public Question? Question { get; set; }
         public Guid TagId { get; set; }
         public Tag? Tag { get; set; }
     }

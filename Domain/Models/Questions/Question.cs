@@ -18,18 +18,24 @@ namespace Domain.Models.Questions
         public Guid ComminutyId { get; private set; }   
         public Community? Community { get; private set; }
         public ICollection<QuestionFile>? Files { get; set; }
+        public ICollection<QuestionTag>? QuestionTags { get; set; }
         
-        public static Question? Create(string title , string content,Guid CommunityId ,ICollection<QuestionFile>? questionFiles)
+        public static Question? Create(string title , string content,Guid CommunityId ,ICollection<QuestionFile>? questionFiles,ICollection<QuestionTag> questionTags)
         {
             Question question = new Question
             {
                 Content = content,
                 Title = title,
                 Files = questionFiles,
+                QuestionTags = questionTags,
                 ComminutyId = CommunityId,
                 CreatedDate = DateTime.Now,
             };
             if (question.Title.Length > 100)
+            {
+                return null;
+            }
+            if(question.QuestionTags.Count >3)
             {
                 return null;
             }
