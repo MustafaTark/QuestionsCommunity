@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Models.Questions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace Domain.Dto.Questions
         public string Content { get; set; }
         public Guid CommunityId { get; set; }
         public List<IFormFile> Files { get; set; }
+        public List<Guid>? QuestionTags { get; set; }
         public QuestionForCreateDto() { 
             Files = new List<IFormFile>();
+            QuestionTags = new List<Guid>();
         }
     }
 }
