@@ -1,4 +1,5 @@
-﻿using Domain.Models.Communities;
+﻿using Domain.Models.Comments;
+using Domain.Models.Communities;
 using Domain.Models.Identity;
 using Domain.Models.Questions;
 using Domain.Models.Tags;
@@ -22,6 +23,8 @@ namespace Infrastructure.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<QuestionFile> QuestionFiles { get; set; }
         public DbSet<QuestionTag> QuestionTags { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentFile> CommentFiles { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 

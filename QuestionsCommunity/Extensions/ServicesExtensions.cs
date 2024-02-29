@@ -21,6 +21,9 @@ using Domain.Dto.Community;
 using Application.Tags.Commands.Create;
 using Application.Tags.Queries.GetAll;
 using Domain.Dto.Tags;
+using Application.Comments.Commands.Create;
+using Application.Comments.Queries.GetAllCommentsByQuestuionId;
+using Domain.Dto.Comments;
 
 namespace BrightWeb.Extensions
 {
@@ -79,7 +82,11 @@ namespace BrightWeb.Extensions
         {
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IRequestHandler<CreateQuestionCommand>, CreateQuestionCommandHandller>();
-            services.AddScoped<IRequestHandler<GetAllQuestionsQuery, IEnumerable<QuestionDto>>, GetAllQuestionsQueryHandler>();
+            services.AddScoped<IRequestHandler<GetAllQuestionsQuery, IEnumerable<QuestionDto>>, GetAllQuestionsQueryHandler>(); 
+            
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IRequestHandler<CreateCommentCommand>, CreateCommentCommandHandller>();
+            services.AddScoped<IRequestHandler<GetAllCommemtsByQuestuionIdQuery, IEnumerable<CommentDto>>, GetAllCommemtsByQuestuionIdQueryHandller>();
             
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IRequestHandler<CreateTagCommand>, CreateTagCommandHandller>();
