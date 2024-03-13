@@ -21,6 +21,7 @@ namespace WebAPI.Controllers
             _mediator = mediator;
         }
         [HttpPost("CreateCommunity")]
+        
         public async Task<IActionResult> CreateCommunity([FromBody] CommunityForCreateDto community)
         {
             if (!ModelState.IsValid)
@@ -31,10 +32,11 @@ namespace WebAPI.Controllers
             return StatusCode(201);
         }
         [HttpGet("GetAllCommunities")]
+        //[ProducesResponseType(typeof(List<CommunityDto>), 200)]
         public async Task<IActionResult> GetAllCommunities([FromQuery] CommunityParamters paramters)
         {
-            var questions = await _mediator.Send(new GetAllCommunitiesQuery(paramters));
-            return Ok(questions);
+            var communities = await _mediator.Send(new GetAllCommunitiesQuery(paramters));
+            return Ok(communities);
         }
     }
 }

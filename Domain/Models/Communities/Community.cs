@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Models.Communities.Rules;
+using Domain.Models.Questions.Rules;
+using Domain.SeedWork;
 using Domain.Shared;
 
 namespace Domain.Models.Communities
@@ -12,13 +15,9 @@ namespace Domain.Models.Communities
         public string Name { get; private set; }
         public string Description { get; private set; }
         public static Community Create(string Name, string Description)
-        { 
-            if(string.IsNullOrEmpty(Name)) 
-                throw new ArgumentNullException("Name Is Required Field");
+        {
             if(Name.Length > 50)
-            {
-                throw new ArgumentNullException("Name Should be less than 50 charchter");
-            }
+               throw new BusinessRuleValidationException(new NameMaximum50charachter());
 
             Community community = new Community
             {

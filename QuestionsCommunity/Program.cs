@@ -1,8 +1,11 @@
 using BrightWeb.Extensions;
 using Domain.Models.Identity;
+using Domain.SeedWork;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,7 +25,30 @@ builder.Services.ConfigureLifeTime();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureIdentity<User>();
 builder.Services.ConfigureJwt(builder.Configuration);
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ApiExceptionFilter()); // Add your custom exception filter here if needed
+}).ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var problemDetails = new ValidationProblemDetails(context.ModelState)
+        {
+            Type = "https://httpstatuses.com/400",
+            Title = "One or more validation errors occurred.",
+            Status = StatusCodes.Status400BadRequest,
+            Detail = "See the errors property for details.",
+            Instance = context.HttpContext.Request.Path
+        };
+
+        return new BadRequestObjectResult(problemDetails)
+        {
+            ContentTypes = { "application/problem+json" }
+        };
+    };
+});
+
+
 
 //    .AddJsonOptions(
 //  //opt =>
