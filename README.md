@@ -76,10 +76,3 @@ Ensure you have the following installed on your machine:
 
 ### Running the Application
 Once the application is up and running, you can access it via `http://localhost:5000` (or the port configured in your setup).
-
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-Special thanks to all the contributors and open-source projects that made this project possible.
